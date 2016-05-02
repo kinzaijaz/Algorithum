@@ -1,0 +1,83 @@
+print("Which scheduling algorithm result do you want? ")
+print("1. First come first serve")
+print("2.Shortest Job first")
+print("3.Shortest remaining time first")
+num = input()
+#------------------------------fcfs-------------------
+if num == '1':
+    print("-------------------FCFS------------------------")
+    p=0
+    print("Enter number of processes: ")
+    p = int(input())
+    dictarr = []
+    for i in range (0,p):
+        detail = {}
+        detail['pname'] = input("Process Name: ")
+        detail['arrival']= int(input("Arrival Time: "))
+        detail['burst'] = int(input("Burst Time: "))
+        dictarr.append(detail)
+    from operator import itemgetter
+    dictarr.sort(key=itemgetter('arrival'))
+    tat = 0
+    wtime = 0
+    awt = 0
+    total =0
+    for i in range(0, p):
+        if i==0:
+            wtime = dictarr[i]['arrival']-dictarr[i]['arrival']
+        else :
+                wtime = total - dictarr[i]['arrival']
+        print( "\n*Process %s waiting time is: %d sec" %(dictarr[i]['pname'], wtime))
+        awt = awt+wtime
+        if  total > dictarr[i]['arrival']:
+            total = total + dictarr[i]['burst']
+        else :
+               total = dictarr[i]['arrival']  + dictarr[i]['burst']
+        print ("Process %s Takes %d sec to complete its processing" % (dictarr[i]['pname'],total) )
+        tat = total - dictarr[i]['arrival']
+        print ("*Proces %s turnaround time is: %d sec" % (dictarr[i]['pname'], tat) )
+    awt=awt/p
+    print("\nAverage waiting time is: %d sec " % awt)
+elif num == '2':
+    print("---------------------SJF-----------------------")
+    p=0
+    print("Enter number of processes: ")
+    p = int(input())
+    dictarr = []
+    for i in range (0,p):
+        detail = {}
+        detail['pname'] = input("Process Name: ")
+        detail['arrival']= int(input("Arrival Time: "))
+        detail['burst'] = int(input("Burst Time: "))
+        dictarr.append(detail)
+    from operator import itemgetter
+    dictarr.sort(key=itemgetter('burst'))
+    tat = 0
+    wtime = 0
+    awt = 0
+    total =0
+    for i in range(0, p):
+        if i==0:
+            wtime = dictarr[i]['arrival']-dictarr[i]['arrival']
+        else :
+                wtime = total - dictarr[i]['arrival']
+        print( "\n*Process %s waiting time is: %d sec" %(dictarr[i]['pname'], wtime))
+        awt = awt+wtime
+        if  total > dictarr[i]['arrival']:
+            total = total + dictarr[i]['burst']
+        else :
+               total = dictarr[i]['arrival']  + dictarr[i]['burst']
+
+        print ("Process %s Takes %d sec to complete its processing" % (dictarr[i]['pname'],total) )
+        tat = total - dictarr[i]['arrival']
+        print ("*Proces %s turnaround time is: %d sec" % (dictarr[i]['pname'], tat) )
+    awt=awt/p
+    print("\nAverage waiting time is: %d sec " % awt)
+elif num == '3':
+    print("--------------------SRTF-----------------------")
+
+    
+    
+    
+
+  
