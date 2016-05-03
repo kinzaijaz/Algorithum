@@ -75,6 +75,40 @@ elif num == '2':
     print("\nAverage waiting time is: %d sec " % awt)
 elif num == '3':
     print("--------------------SRTF-----------------------")
+    p=0
+    print("Enter number of processes: ")
+    p = int(input())
+    dictarr = []
+    for i in range (0,p):
+        detail = {}
+        detail['pname'] = input("Process Name: ")
+        detail['arrival']= int(input("Arrival Time: "))
+        detail['burst'] = int(input("Burst Time: "))
+        dictarr.append(detail)
+    total = 0
+    from operator import itemgetter
+    dictarr.sort(key=itemgetter('arrival'))
+    elem = dictarr[0]
+    del dictarr[0]
+    total = total + elem['arrival']
+    i =p
+    while(i):
+        j=0
+        for k in range (0, i-1):
+            if(elem['burst'] > dictarr[j]['burst']):
+                if(dictarr[j]['arrival']<= total):
+                    dictarr = dictarr + [elem]
+                    elem = dictarr[j]
+                    del dictarr[j]
+                else:
+                    j = j+1
+        elem['burst'] = elem['burst'] -1
+        total = total +1
+        if ( elem['burst'] == 0):
+            print ("\nProcess %s takes time to process is: %d sec" %(elem['pname'], total))
+            print( "Waiting time for process %s is: %d sec" % (elem['pname'], total - (elem['arrival']+ elem['burst'] )))
+            print ("Turnaround time for process %s is: %d sec" % (elem['pname'], total - elem['arrival']))
+        i = i - 1
 
     
     
