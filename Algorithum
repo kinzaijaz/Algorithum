@@ -91,27 +91,25 @@ elif num == '3':
     elem = dictarr[0]
     del dictarr[0]
     total = total + elem['arrival']
-    i =p
-    while(i):
-        j=0
-        for k in range (0, i-1):
+    burst = 0
+    for k in range (0, (p*p)):
+        dictarr.sort(key=itemgetter('burst'))
+        for j in range (0, p-1):
             if(elem['burst'] > dictarr[j]['burst']):
                 if(dictarr[j]['arrival']<= total):
-                    dictarr = dictarr + [elem]
+                    dictarr.append(elem)
                     elem = dictarr[j]
+                    burst = elem ['burst']
                     del dictarr[j]
-                else:
-                    j = j+1
+                    break  
         elem['burst'] = elem['burst'] -1
         total = total +1
         if ( elem['burst'] == 0):
             print ("\nProcess %s takes time to process is: %d sec" %(elem['pname'], total))
-            print( "Waiting time for process %s is: %d sec" % (elem['pname'], total - (elem['arrival']+ elem['burst'] )))
+            print( "Waiting time for process %s is: %d sec" % (elem['pname'], (total - (elem['arrival']+ burst ))))
             print ("Turnaround time for process %s is: %d sec" % (elem['pname'], total - elem['arrival']))
-        i = i - 1
-
-    
-    
-    
-
-  
+        if (elem['burst']== 0):
+             dictarr.sort(key=itemgetter('burst'))
+             elem = dictarr[0]
+             del dictarr[0]
+             p = p-1
